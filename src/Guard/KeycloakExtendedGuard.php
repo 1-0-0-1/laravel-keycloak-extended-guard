@@ -14,7 +14,6 @@ use KeycloakExtendedGuard\Exception\KeycloakExtendedGuardException;
 use KeycloakExtendedGuard\Exception\UserNotFoundExceptionExtended;
 use KeycloakExtendedGuard\KeycloakRemoteServer;
 use KeycloakExtendedGuard\Token\RS256;
-use function app;
 use function config;
 
 class KeycloakExtendedGuard implements Guard
@@ -24,13 +23,14 @@ class KeycloakExtendedGuard implements Guard
     private Request $request;
     private array $config;
     private ?object $decodedToken = null;
-    private KeycloakRemoteServer $keycloakRemoteServer;
+    private ?KeycloakRemoteServer $keycloakRemoteServer;
 
-    public function __construct(UserProvider $provider, Request $request)
+    public function __construct(UserProvider $provider, Request $request, KeycloakRemoteServer $keycloakRemoteServer = null)
     {
         $this->config = config('keycloak');
         $this->request = $request;
         $this->provider = $provider;
+        $this->keycloakRemoteServer = $keycloakRemoteServer;
         $this->user = null;
 
         $this->authenticate();
@@ -46,7 +46,7 @@ class KeycloakExtendedGuard implements Guard
             $decodedToken = RS256::decode($token, $this->config['client_secret']);
 
             if ($this->config['required_server_confirm']) {
-                app()->make(KeycloakRemoteServer::class)->validateToken($token);
+                $this->keycloakRemoteServer->validateToken($token);
             }
             $this->decodedToken = $decodedToken;
             $this->validate([

@@ -7,6 +7,7 @@ namespace KeycloakExtendedGuard\Provider;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\ServiceProvider;
 use KeycloakExtendedGuard\Guard\KeycloakExtendedGuard;
+use KeycloakExtendedGuard\KeycloakRemoteServer;
 use function app;
 
 class KeycloakExtendedServiceProvider extends ServiceProvider
@@ -23,7 +24,8 @@ class KeycloakExtendedServiceProvider extends ServiceProvider
     public function register()
     {
         Auth::extend('keycloak', function ($app, $name, array $config) {
-            return new KeycloakExtendedGuard(Auth::createUserProvider($config['provider']), $app->request);
+            $keycloakRemoteServer = new KeycloakRemoteServer();
+            return new KeycloakExtendedGuard(Auth::createUserProvider($config['provider']), $app->request, $keycloakRemoteServer);
         });
     }
 }
