@@ -10,8 +10,8 @@ use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\Auth\UserProvider;
 use Illuminate\Http\Request;
-use KeycloakExtendedGuard\Exception\KeycloakGuardException;
-use KeycloakExtendedGuard\Exception\UserNotFoundException;
+use KeycloakExtendedGuard\Exception\KeycloakExtendedGuardException;
+use KeycloakExtendedGuard\Exception\UserNotFoundExceptionExtended;
 use KeycloakExtendedGuard\KeycloakRemoteServer;
 use KeycloakExtendedGuard\Token\RS256;
 use function app;
@@ -37,7 +37,7 @@ class KeycloakExtendedGuard implements Guard
     }
 
     /**
-     * @throws KeycloakGuardException
+     * @throws KeycloakExtendedGuardException
      */
     public function authenticate(): void
     {
@@ -53,7 +53,7 @@ class KeycloakExtendedGuard implements Guard
                 $this->config['user_provider_credential'] => $this->decodedToken->{$this->config['token_principal_attribute']}
             ]);
         } catch (Exception $e) {
-            throw new KeycloakGuardException($e->getMessage(), $e->getCode(), $e);
+            throw new KeycloakExtendedGuardException($e->getMessage(), $e->getCode(), $e);
         }
     }
 
@@ -85,7 +85,7 @@ class KeycloakExtendedGuard implements Guard
      *
      * @param array $credentials
      * @return bool
-     * @throws UserNotFoundException
+     * @throws UserNotFoundExceptionExtended
      */
     public function validate(array $credentials = []): bool
     {
@@ -96,7 +96,7 @@ class KeycloakExtendedGuard implements Guard
         if ($this->config['load_user']) {
             $user = $this->provider->retrieveByCredentials($credentials);
             if (!$user) {
-                throw new UserNotFoundException("User not found. Credentials: " . json_encode($credentials));
+                throw new UserNotFoundExceptionExtended("User not found. Credentials: " . json_encode($credentials));
             }
         } else {
             $class = $this->provider->getModel();

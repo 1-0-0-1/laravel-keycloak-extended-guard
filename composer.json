@@ -2,6 +2,7 @@
     "version": "1.0.3",
     "name": "1-0-0-1/laravel-keycloak-extended-guard",
     "description": "Keycloak Guard for Laravel with remote validation",
+    "keywords": ["laravel", "keycloak"],
     "homepage": "https://github.com/1-0-0-1/laravel-keycloak-extended-guard",
     "license": "proprietary",
     "type": "library",
@@ -18,7 +19,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "KeycloakExtendedGuard\\KeycloakExtendedServiceProvider"
+                "KeycloakExtendedGuard\\Provider\\KeycloakExtendedServiceProvider"
             ],
             "dont-discover": []
         }
@@ -27,6 +28,5 @@
         {
             "name": "Alexey Shchetkin"
         }
-    ],
-    "minimum-stability": "dev"
+    ]
 }

@@ -6,7 +6,7 @@ namespace KeycloakExtendedGuard;
 
 use Exception;
 use Illuminate\Support\Facades\Http;
-use KeycloakExtendedGuard\Exception\KeycloakRemoteServerException;
+use KeycloakExtendedGuard\Exception\KeycloakExtendedRemoteServerException;
 use function config;
 
 class KeycloakRemoteServer
@@ -19,17 +19,17 @@ class KeycloakRemoteServer
     }
 
     /**
-     * @throws KeycloakRemoteServerException
+     * @throws KeycloakExtendedRemoteServerException
      */
     public function validateToken(string $token): void
     {
         try {
             $response = Http::withToken($token)->get($this->getBaseUrl() . '/protocol/openid-connect/userinfo');
             if (!$response->ok()) {
-                throw new KeycloakRemoteServerException($response->json('error_description'), $response->status());
+                throw new KeycloakExtendedRemoteServerException($response->json('error_description'), $response->status());
             }
         } catch (Exception $e) {
-            throw new KeycloakRemoteServerException($e->getMessage(), $e->getCode());
+            throw new KeycloakExtendedRemoteServerException($e->getMessage(), $e->getCode());
         }
     }
 

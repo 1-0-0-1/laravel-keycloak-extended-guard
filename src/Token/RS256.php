@@ -7,24 +7,24 @@ namespace KeycloakExtendedGuard\Token;
 use Exception;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
-use KeycloakExtendedGuard\Exception\TokenException;
+use KeycloakExtendedGuard\Exception\TokenExceptionExtended;
 use KeycloakExtendedGuard\TokenInterface;
 
 class RS256 implements TokenInterface
 {
     /**
-     * @throws TokenException
+     * @throws TokenExceptionExtended
      */
     public static function decode(string $token = null, string $key = null): ?object
     {
         try {
             if (empty($token)) {
-                throw new TokenException("Token is empty");
+                throw new TokenExceptionExtended("Token is empty");
             }
             $publicKey = self::createPublicKey($key);
             return JWT::decode($token, new Key($publicKey, 'RS256'));
         } catch (Exception $e) {
-            throw new TokenException($e->getMessage());
+            throw new TokenExceptionExtended($e->getMessage());
         }
     }
 
