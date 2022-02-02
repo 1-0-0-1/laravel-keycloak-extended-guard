@@ -10,7 +10,7 @@ use KeycloakExtendedGuard\Guard\KeycloakExtendedGuard;
 use KeycloakExtendedGuard\KeycloakRemoteServer;
 use function app;
 
-class KeycloakExtendedServiceProvider extends ServiceProvider
+class KeycloakExtendedGuardServiceProvider extends ServiceProvider
 {
     public function boot()
     {

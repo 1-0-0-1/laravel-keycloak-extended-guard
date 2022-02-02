@@ -19,7 +19,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "KeycloakExtendedGuard\\Provider\\KeycloakExtendedServiceProvider"
+                "KeycloakExtendedGuard\\Provider\\KeycloakExtendedGuardServiceProvider"
             ],
             "dont-discover": []
         }
