@@ -5,6 +5,7 @@
     "homepage": "https://github.com/1-0-0-1/laravel-keycloak-extended-guard",
     "type": "library",
     "require": {
+        "php": ">=7.4",
         "firebase/php-jwt": "^6.0",
         "laravel/helpers": "^1.5"
     },
