@@ -1,0 +1,28 @@
+{
+    "name": "1-0-0-1/laravel-keycloak-extended-guard",
+    "description": "Keycloak Guard for Laravel with remote validation",
+    "type": "library",
+    "require": {
+        "firebase/php-jwt": "^6.0",
+        "laravel/helpers": "^1.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "KeycloakExtendedGuard\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "KeycloakExtendedGuard\\KeycloakExtendedServiceProvider"
+            ],
+            "dont-discover": []
+        }
+    },
+    "authors": [
+        {
+            "name": "Alexey Shchetkin"
+        }
+    ],
+    "minimum-stability": "dev"
+}
