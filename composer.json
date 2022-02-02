@@ -1,5 +1,5 @@
 {
-    "version": "1.0.0",
+    "version": "1.0.1",
     "name": "1-0-0-1/laravel-keycloak-extended-guard",
     "description": "Keycloak Guard for Laravel with remote validation",
     "homepage": "https://github.com/1-0-0-1/laravel-keycloak-extended-guard",
